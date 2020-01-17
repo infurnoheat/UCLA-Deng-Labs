@@ -3,7 +3,7 @@
 if(!requireNamespace("BiocManager" , quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install()
-BiocManager::install(c("GenomicFeatures" , "AnnotationDbi"))
+BiocManager::install(c("GenomicFeatures" , "AnnotationDbi" , "BioBase"))
 BiocManager::install(c("limma" , "sva" , "pamr"))
 
 #to load the previously installed packages:
@@ -23,3 +23,6 @@ dat <- as.matrix("MODRAW")
 #executing ComBat
 
 newdata <- ComBat(dat =dat , batch = MODPHENO$Batch , par.prior = FALSE , mod = null)
+
+#writing into a file
+write.csv(newdata , file = "SampleData_ComBat.csv")
