@@ -3,7 +3,7 @@
 if(!requireNamespace("BiocManager" , quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install()
-BiocManager::install(c("GenomicFeatures" , "AnnotationDbi" , "BioBase"))
+BiocManager::install(c("GenomicFeatures" , "AnnotationDbi" , "Biobase"))
 BiocManager::install(c("limma" , "sva" , "pamr"))
 
 #to load the previously installed pkgs:
@@ -16,13 +16,14 @@ library(AnnotationDbi)
 
 #setting up the data
 
-MODRAW = read.csv("82-Gene_Expression_Data_Nameless.csv" , header = TRUE) #gene expression file
-MODPHENO = read.csv("82-Gene_Phenotype_Data_Nameless.csv" , header = TRUE) #phenotype file
-dat <- as.matrix("MODRAW")
+MODRAW = read.csv("FINAL_EDITED_Qunitified 81 samples master sheet DengLab_Irina_for_Tristan.csv" , header = TRUE) #gene expression file
+MODPHENO = read.csv("FINAL_Edited_81 patients_Batch-Age-SOFA_GeneLists.csv" , header = TRUE) #phenotype file
+dat <- as.matrix(MODRAW)
+batches = MODPHENO$batch
 
 #executing ComBat
 
-newdata <- ComBat(dat = dat , batch = MODPHENO$Batch , par.prior = FALSE , mod = NULL)
+newdata <- ComBat(dat = dat , batch = batches , par.prior = FALSE , mod = NULL)
 
 #writing into a file
 
